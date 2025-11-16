@@ -11,8 +11,8 @@
                     "isRequired": true,
                     "attributes": []
                 },
-                "status": {
-                    "name": "status",
+                "content": {
+                    "name": "content",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -56,6 +56,15 @@
                             {
                                 "allow": "public",
                                 "provider": "apiKey",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            },
+                            {
+                                "allow": "private",
                                 "operations": [
                                     "create",
                                     "update",

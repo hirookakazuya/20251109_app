@@ -12,15 +12,23 @@ const schema = a.schema({
   // これは AWS DynamoDB のテーブルに対応します。
   Todo: a.model({
     // 'content' というフィールドを定義します。型は文字列 (String) です。
+    content: a.string(),
 
 
-    status: a.string(),
     // 'isDone' というフィールドを定義します。型は真偽値 (Boolean) です。
     isDone: a.boolean()
   })
     // このモデルに対するアクセス許可（認可ルール）を定義します。
     // ここでは、パブリックな API キー (publicApiKey) を持つユーザー（クライアント）にアクセスを許可しています。
-    .authorization(allow => [allow.publicApiKey()])
+    //.authorization(allow => [allow.publicApiKey()])
+    .authorization(allow => [
+      allow.publicApiKey(), 
+      // 修正後のコード: 認証済みユーザーなら誰でもOK (操作限定はできない)
+      allow.authenticated() 
+      // もしくは
+      // allow.private()
+    ])
+    
 });
 
 // Used for code completion / highlighting when making requests from frontend

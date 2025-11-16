@@ -1,10 +1,9 @@
-type Note @aws_iam @aws_cognito_user_pools {
-  content: String!
-  isCompleted: Boolean
+type Todo @aws_iam @aws_cognito_user_pools @aws_api_key {
+  content: String
+  isDone: Boolean
   id: ID!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
-  owner: String
 }
 
 input AmplifyAIConversationTurnErrorInput {
@@ -162,74 +161,71 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelNoteConnection @aws_iam @aws_cognito_user_pools {
-  items: [Note]!
+type ModelTodoConnection @aws_api_key @aws_iam @aws_cognito_user_pools {
+  items: [Todo]!
   nextToken: String
 }
 
-input ModelNoteFilterInput {
+input ModelTodoFilterInput {
   content: ModelStringInput
-  isCompleted: ModelBooleanInput
+  isDone: ModelBooleanInput
   id: ModelIDInput
   createdAt: ModelStringInput
   updatedAt: ModelStringInput
-  and: [ModelNoteFilterInput]
-  or: [ModelNoteFilterInput]
-  not: ModelNoteFilterInput
-  owner: ModelStringInput
+  and: [ModelTodoFilterInput]
+  or: [ModelTodoFilterInput]
+  not: ModelTodoFilterInput
 }
 
 type Query {
-  getNote(id: ID!): Note @aws_iam @aws_cognito_user_pools
-  listNotes(filter: ModelNoteFilterInput, limit: Int, nextToken: String): ModelNoteConnection @aws_iam @aws_cognito_user_pools
+  getTodo(id: ID!): Todo @aws_api_key @aws_iam @aws_cognito_user_pools
+  listTodos(filter: ModelTodoFilterInput, limit: Int, nextToken: String): ModelTodoConnection @aws_api_key @aws_iam @aws_cognito_user_pools
 }
 
-input ModelNoteConditionInput {
+input ModelTodoConditionInput {
   content: ModelStringInput
-  isCompleted: ModelBooleanInput
-  and: [ModelNoteConditionInput]
-  or: [ModelNoteConditionInput]
-  not: ModelNoteConditionInput
+  isDone: ModelBooleanInput
+  and: [ModelTodoConditionInput]
+  or: [ModelTodoConditionInput]
+  not: ModelTodoConditionInput
   createdAt: ModelStringInput
   updatedAt: ModelStringInput
-  owner: ModelStringInput
 }
 
-input CreateNoteInput {
-  content: String!
-  isCompleted: Boolean
+input CreateTodoInput {
+  content: String
+  isDone: Boolean
   id: ID
 }
 
-input UpdateNoteInput {
+input UpdateTodoInput {
   content: String
-  isCompleted: Boolean
+  isDone: Boolean
   id: ID!
 }
 
-input DeleteNoteInput {
+input DeleteTodoInput {
   id: ID!
 }
 
 type Mutation {
-  createNote(input: CreateNoteInput!, condition: ModelNoteConditionInput): Note @aws_iam @aws_cognito_user_pools
-  updateNote(input: UpdateNoteInput!, condition: ModelNoteConditionInput): Note @aws_iam @aws_cognito_user_pools
-  deleteNote(input: DeleteNoteInput!, condition: ModelNoteConditionInput): Note @aws_iam @aws_cognito_user_pools
+  createTodo(input: CreateTodoInput!, condition: ModelTodoConditionInput): Todo @aws_api_key @aws_iam @aws_cognito_user_pools
+  updateTodo(input: UpdateTodoInput!, condition: ModelTodoConditionInput): Todo @aws_api_key @aws_iam @aws_cognito_user_pools
+  deleteTodo(input: DeleteTodoInput!, condition: ModelTodoConditionInput): Todo @aws_api_key @aws_iam @aws_cognito_user_pools
 }
 
-input ModelSubscriptionNoteFilterInput {
+input ModelSubscriptionTodoFilterInput {
   content: ModelSubscriptionStringInput
-  isCompleted: ModelSubscriptionBooleanInput
+  isDone: ModelSubscriptionBooleanInput
   id: ModelSubscriptionIDInput
   createdAt: ModelSubscriptionStringInput
   updatedAt: ModelSubscriptionStringInput
-  and: [ModelSubscriptionNoteFilterInput]
-  or: [ModelSubscriptionNoteFilterInput]
-  owner: ModelStringInput
+  and: [ModelSubscriptionTodoFilterInput]
+  or: [ModelSubscriptionTodoFilterInput]
 }
 
 type Subscription {
-  onCreateNote(filter: ModelSubscriptionNoteFilterInput, owner: String): Note @aws_subscribe(mutations: ["createNote"]) @aws_iam @aws_cognito_user_pools
-  onUpdateNote(filter: ModelSubscriptionNoteFilterInput, owner: String): Note @aws_subscribe(mutations: ["updateNote"]) @aws_iam @aws_cognito_user_pools
-  onDeleteNote(filter: ModelSubscriptionNoteFilterInput, owner: String): Note @aws_subscribe(mutations: ["deleteNote"]) @aws_iam @aws_cognito_user_pools
+  onCreateTodo(filter: ModelSubscriptionTodoFilterInput): Todo @aws_subscribe(mutations: ["createTodo"]) @aws_api_key @aws_iam @aws_cognito_user_pools
+  onUpdateTodo(filter: ModelSubscriptionTodoFilterInput): Todo @aws_subscribe(mutations: ["updateTodo"]) @aws_api_key @aws_iam @aws_cognito_user_pools
+  onDeleteTodo(filter: ModelSubscriptionTodoFilterInput): Todo @aws_subscribe(mutations: ["deleteTodo"]) @aws_api_key @aws_iam @aws_cognito_user_pools
 }

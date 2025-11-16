@@ -1,9 +1,9 @@
 {
   "auth": {
-    "user_pool_id": "ap-northeast-1_fSOjmvAxm",
+    "user_pool_id": "ap-northeast-1_TFG8VGvru",
     "aws_region": "ap-northeast-1",
-    "user_pool_client_id": "2nqlhl9roohcbtapfkv8lu5r4t",
-    "identity_pool_id": "ap-northeast-1:1581c23e-9f32-4441-8286-02f2534bf852",
+    "user_pool_client_id": "2cmummdpqq2cl5a09t3n9mn83i",
+    "identity_pool_id": "ap-northeast-1:3cf76437-9d6e-41f0-a005-4fd236569f99",
     "mfa_methods": [],
     "standard_required_attributes": [
       "email"
@@ -26,9 +26,9 @@
     "unauthenticated_identities_enabled": true
   },
   "data": {
-    "url": "https://oo4o2l7t55g6di76qmenxr7x3y.appsync-api.ap-northeast-1.amazonaws.com/graphql",
+    "url": "https://rj74a7hznrdptmaa7cnr4fnb3q.appsync-api.ap-northeast-1.amazonaws.com/graphql",
     "aws_region": "ap-northeast-1",
-    "api_key": "da2-lzttkfxmfjhsdijc7tn76pz6by",
+    "api_key": "da2-helnc4vev5gn3ku4lyal2so6ii",
     "default_authorization_type": "API_KEY",
     "authorization_types": [
       "AMAZON_COGNITO_USER_POOLS",
@@ -47,8 +47,15 @@
               "isRequired": true,
               "attributes": []
             },
-            "status": {
-              "name": "status",
+            "content": {
+              "name": "content",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "aaa": {
+              "name": "aaa",
               "isArray": false,
               "type": "String",
               "isRequired": false,
@@ -92,6 +99,15 @@
                   {
                     "allow": "public",
                     "provider": "apiKey",
+                    "operations": [
+                      "create",
+                      "update",
+                      "delete",
+                      "read"
+                    ]
+                  },
+                  {
+                    "allow": "private",
                     "operations": [
                       "create",
                       "update",

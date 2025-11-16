@@ -1,0 +1,6 @@
+type Todo @model @auth(rules: [{allow: public, provider: apiKey},
+  {allow: private}])
+{
+  content: String
+  isDone: Boolean
+}

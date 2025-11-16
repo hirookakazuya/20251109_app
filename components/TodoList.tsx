@@ -77,7 +77,7 @@ export default function TodoList() {
         // client.models.Todo.createでデータベースにhttpリクエスト
         // window.pronpt()はブラウザの標準機能の利用
         await client.models.Todo.create({
-            status: window.prompt("Todo content?"),
+            content: window.prompt("Todo content?"),
             isDone: false,
         });
         fetchTodos();
@@ -95,8 +95,8 @@ export default function TodoList() {
             
             <button onClick={createTodo}>Add new todo</button>
             <ul>
-                {todos.map(({ id, status }) => (
-                    <li key={id}>{status}</li>
+                {todos.map(({ id, content }) => (
+                    <li key={id}>{content}</li>
                 ))}
             </ul>
         </div>

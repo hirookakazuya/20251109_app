@@ -1,5 +1,0 @@
-type Note @model @auth(rules: [{allow: owner, ownerField: "owner"}])
-{
-  content: String!
-  isCompleted: Boolean
-}
